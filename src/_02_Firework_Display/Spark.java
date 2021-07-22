@@ -9,8 +9,8 @@ public class Spark {
 
     public int x;
     public int y;
-    public int xVelocity;
-    public int yVelocity;
+    public double xVelocity;
+    public double yVelocity;
     public Color color;
 
     public boolean fire = false;
