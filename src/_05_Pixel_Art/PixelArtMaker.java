@@ -7,6 +7,12 @@ import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 
 public class PixelArtMaker implements MouseListener{
+	
+	boolean isDrawing;
+	
+	int x;
+	int y;
+	
     private JFrame window;
     private GridInputPanel gip;
     private GridPanel gp;
@@ -37,10 +43,14 @@ public class PixelArtMaker implements MouseListener{
 
     public static void main(String[] args) {
         new PixelArtMaker().start();
+        
+        
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+    	
+ 
     }
 
     @Override
@@ -49,10 +59,22 @@ public class PixelArtMaker implements MouseListener{
         System.out.println(csp.getSelectedColor());
         gp.clickPixel(e.getX(), e.getY());
         gp.repaint();
+    	
+    	
+    	
+    	/*x = e.getX();
+    	y = e.getY();
+    	
+    	isDrawing  = true;
+    	System.out.println("Mouse is being pressed" + isDrawing);
+    	gp.updateDrawing();*/
+    	
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+    	
+    	//isDrawing = false;
     }
 
     @Override
@@ -62,4 +84,16 @@ public class PixelArtMaker implements MouseListener{
     @Override
     public void mouseExited(MouseEvent e) {
     }
+    
+    /*public void updateDrawing() {
+    	
+    	
+    	if(isDrawing) {
+    	gp.setColor(csp.getSelectedColor());
+        System.out.println(csp.getSelectedColor());
+        gp.clickPixel(.getX(), e.getY());
+        gp.repaint();
+    	}
+    }*/
+    
 }
