@@ -48,25 +48,37 @@
 
 package _07_The_Wrong_Way_Cow;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TheWrongWayCow {
 
+	
+	
+    
+    static ArrayList <String> directions = new ArrayList<String>();
+	
     public static int[] findWrongWayCow(final char[][] field) {
         // Fill in the code to return the [col, row] coordinate position of the
         // head (letter 'c') of the wrong way cow!
+    	
     	
     	//TheWrongWayCowTest cowTest = new TheWrongWayCowTest();
     	/*int[][] cowCoordinates = new int[1][1];
         int col;
         int row;*/
         
-        int northCnt = 0;
+    	int northCnt = 0;
         int eastCnt = 0;
         int southCnt = 0;
         int westCnt = 0;
         
-        HashMap<String, int[]> hm = new HashMap<String, int[]>(4);
+        int totalCows = 0;
+        
+        
+        HashMap<String, int[]> hm = new HashMap<String, int[]>();
+        
+        
         
        /* field = cowTest.simple();
         if(cowTest.) {
@@ -78,18 +90,77 @@ public class TheWrongWayCow {
 
         for(int i = 0; i<field.length; i++ ) {
         	for(int k = 0; k<field[i].length; k++) {
+        		if (hm.size()>1 && totalCows > 2) {
+        			i=field.length;
+        			break;
+        		}
         		if(field[i][k] == 'c') {
-        			if(field[i+1][k] == 'o' && field[i+2][k] == 'w') {
-        				//right-way cow
+        			
+        			if(eastCnt < 2 && i+2 < field.length && field[i+1][k] == 'o' && field[i+2][k] == 'w') {
+        				//east
+        				eastCnt++;
+        				totalCows++;
+        				//directions.add("east");
+        				
+        				
+        				hm.put("east", new int[] {k, i});
+        				/*if(checkBreak()) {
+        				hm.put(WWC(), new int[] {i, k});
+        				i = (field.length)+1;
+        				}*/
+        				
+        				continue;
         			}
-        			else {
-        				//wrong-way cow
+        			
+        			else if (westCnt <2 && i-2 >= 0 && field[i-1][k] == 'o' && field[i-2][k] == 'w') {
+        				//west
+        				westCnt++;
+        				totalCows++;
+        				
+        				hm.put("west", new int[]{k, i});
+        				
+        				continue;
+        				//directions.add("west");
+        				/*if(checkBreak()) {
+        					hm.put(WWC(), new int[] {i, k});
+        					i = (field.length)+1;
+            			}*/
         				
         			}
+        			else if (southCnt < 2 && k+2 < field[i].length && field[i][k+1] == 'o' && field[i][k+2] == 'w') {
+        				//south
+        				southCnt++;
+        				totalCows++;
+        				hm.put("south", new int[] {k, i});
+        				continue;
+        				/*.add("south");
+        				if(checkBreak()) {
+        					hm.put(WWC(), new int[] {i, k});
+        					i = (field.length)+1;
+            			}*/
+        			}
+        			else if (northCnt < 2 && k-2 >= 0 && field[i][k-1] == 'o' && field[i][k-2] == 'w'){
+        				
+        				//north
+        				northCnt++;
+        				totalCows++;
+        				hm.put("north", new int[] {k, i});
+        				continue;
+        				/*directions.add("north");
+        				if(checkBreak()) {
+        					hm.put(WWC(), new int[] {i, k});
+        					i = (field.length)+1;
+            			}*/
+        				
+        			}	
+        			
         		}
+        		
         	}
         	
         }
+        
+        
         
         
         /*TIPS: 
@@ -113,10 +184,67 @@ hm.put( "north", new int[] { j, i } );
 hm.get( "north" );
         
         */
-        return null;
+        
+        //HOW DO I RETUN AN INT???
+        if(eastCnt == 1) {return hm.get("east");}
+        else if(southCnt ==1) {return hm.get("south");}
+        else if(westCnt == 1) {return hm.get("west");}
+        else if(northCnt == 1){return hm.get("north");}
+        else {
+        	return null;
+        }
         
        
         
     }
+    
+ /*   static boolean checkBreak() {
+    	if(totalCows >= 3) {
+			for(int i = 0; i<directions.size(); i++) {
+				System.out.println(directions.get(i));
+				if(directions.get(i) != directions.get(0)) {
+					System.out.println("break search");
+					return true;
+				}
+			}
+		}
+    	
+		return false;
+    }
+    
+    static String WWC() {
+    	
+    	for(int i = 0; i<directions.size(); i++) {
+    		if(northCnt >=2) {
+    		
+    			if(directions.get(i) != "north") {
+    				return directions.get(i);
+    			}
+        	
+    		}else if(eastCnt >= 2) {
+    			
+    			if(directions.get(i) != "east") {
+    				return directions.get(i);
+    			}
+        	
+    		}else if(southCnt >= 2) {
+    			
+    			if(directions.get(i) != "south") {
+    				return directions.get(i);
+    			}
+        	
+    		}else {
+    			
+    			if(directions.get(i) != "west") {
+    				return directions.get(i);
+    			}
+        	
+    		}
+    	
+    	}
+    	
+		return null;
+    	
+    }*/
  
 }
